@@ -1,3 +1,4 @@
+[Variables in data frame]:
 GHG = Total greenhouse gas emissions (kt of CO2 equivalent)
 Ergpc = Energy use (kg of oil equivalent per capita)
 Cleanerg_rate = Alternative and nuclear energy (% of total energy use)
@@ -8,3 +9,10 @@ Land = Land area (sq. km)
 Forest_rate = Forest area (% of land area)
 Agland_rate = Agricultural land (% of land area)
 GDPPPP = GDP per capita, PPP (current international $)
+
+[Variables in model]:
+ln(GHG): The log value of Total greenhouse gas emissions (kt of CO2 equivalent), Greenhouse gases include CO₂, N₂O, Freon, CH₄, etc.  
+ln(Ergpc): The log value of Energy use (kg of oil equivalent per capita). “Energy use refers to use of primary energy before transformation to other end-use fuels, which is equal to indigenous production plus imports and stock changes, minus exports and fuels supplied to ships and aircraft engaged in international transport.” (The World Bank) 
+Cleanerg_rate:Alternative and nuclear energy (% of total energy use). “Clean energy is noncarbohydrate energy that does not produce carbon dioxide when generated. It includes hydropower and nuclear, geothermal, and solar power, among others.” (The World Bank) 
+Agland_rate:Agricultural land (% of land area). Agricultural land refers to the share of land area that is arable, under permanent crops, and under permanent pastures. Arable land includes land defined by the FAO as land under temporary crops (double-cropped areas are counted once), temporary meadows for mowing or for pasture, land under market or kitchen gardens, and land temporarily fallow. 
+lnGDPpc:The log value of  GDP per capita (current US$).*This variable was later dropped from the final model due to multicollinearity problems. 

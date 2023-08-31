@@ -7,7 +7,7 @@ I obtained 25 years of data for 12 countries from the World Development Indicato
 This paper adopted a Two-Way Fixed Effect model which controls fixed effects from both cross section and time. The explained variable is log (GHG emissions), and the explanatory variables are log (energy use per capita), log (GDP per capita), clean energy using rate, and percentage of agricultural land in total land. However due to the presence of multicollinearity, log (GDP per capita) was removed. This paper tested the autocorrelation and used the Cochrane-Orcutt Iterative Process to estimate the autocorrelation coefficient to transform all variables so that solve the autocorrelation issue. The final regression model is as follows:
 
 # ln(Greenhouse Gases emission)=β_i  + 1.06*ln(Energy use per capita) – 0.009*(Alternative and nuclear energy % of total energy use) + 0.0074*(Agricultural land % of land area)
-# β_i  = AUS~3.6074,BRA~5.9772,CHN~7.6216,DEU~4.6262,FRA~4.2196,IND~7.4450,JPN~5.2377,KOR~4.2565,THA~4.5428,UK~4.2132,USA~5.8597,VNM~5,2504  
+# β_i  = AUS3.6074,BRA5.9772,CHN7.6216,DEU4.6262,FRA4.2196,IND7.4450,JPN5.2377,KOR4.2565,THA4.5428,UK4.2132,USA5.8597,VNM5.2504  
 
 The overall F-test of this model is significant, and the individual t-tests of the coefficients of each variable are all significant. R^2=92.18, adjR^2=91.04. This shows that the explanatory power of the model is strong.
 

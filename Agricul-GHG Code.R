@@ -30,6 +30,8 @@ library(skedastic)
 Data_1 <- read.csv("1990-14WorldGHGLand")
 View(Data_1)
 
+# Firstly, some linear regressions are established to test the relationship between the variables and the significance of the coefficients #
+
 m1 <- lm(lnGHG ~ Ergpc + Cleanerg_rate + Forest + Agland + GDPpc  + Land +Forest_rate + Agland_rate + GDPP, data=Data_1)
 summary(m1)
 m2 <- lm(GHG ~ Ergpc + Cleanerg_rate + GDPpc + Forest_rate + Agland_rate , data=Data_1)
@@ -40,17 +42,21 @@ Data_1_1 <- Data_1 %>%
 
 m3 <- lm(lnGHG ~ Ergpc + Cleanerg_rate + GDPpc + Forest_rate + Agland_rate , data=Data_1)
 summary(m3)
-m1 <- lm(lnGHG ~  Forest + Agland + GDPpc +Forest_rate + Agland_rate , data=Data_1)
-summary(m1)
+m4 <- lm(lnGHG ~  Forest + Agland + GDPpc +Forest_rate + Agland_rate , data=Data_1)
+summary(m4)
+
+# Because I use panel data, after the ordinary regression, I try to pooling regression(One-way fixed effect) #
 
 plm_ <- plm(lnGHG ~   Ergpc  + GDPpc + Agland_rate + Forest + Forest_rate, model = "within", index = c("Country", "Year"), data= Data_1_1)
 summary(plm_)
 
 stargazer(plm_,type = "text")
 
+# Through four commonly used graphs, observe whether there are obvious heteroscedasticity and NMC problems #
 par(mfrow = c(2,2))
 plot(plm_)
 
+# MC-test use to detect Near multicollinearity(NMC) #
 mctest(plm_)
 
 plm_1 <- plm(lnGHG ~  Ergpc + Cleanerg_rate + GDPpc + Agland_rate + Forest_rate + Forest + Agland, model = "within", index = c("Country", "Year"), data= Data_1_1)
@@ -70,7 +76,11 @@ eigprop(lm1)
 plm_0 <- plm(lnGHG ~  Ergpc + Cleanerg_rate + GDPpc + Agland_rate + Forest_rate + Forest, model = "pooling", index = c("Country", "Year"), data= Data_1_1)
 summary(plm_0)
 
+# Here, I use 'pFtest' compare One-way Fixed Effect and Pooling regression, which is more appropriate in this case #
 pFtest(plm_0 , plm_1)
+
+# The result is that the Fixed-Effect model outperforms Simple Pooling regression #
+# Next, having decided to use the effects model, I model the fixed effects and the random effects respectively, and compare which of the two is more suitable #
 
 plm_1t <- plm(lnGHG ~  Ergpc + Cleanerg_rate + GDPpc + Agland_rate + Forest_rate + Forest, model = "within",effect = "time", index = c("Country", "Year"), data= Data_1_1)
 summary(plm_1t)
@@ -78,11 +88,10 @@ stargazer(plm_1,plm_1t,type = "text")
 plm_1r <- plm(lnGHG ~  Ergpc + Cleanerg_rate + GDPpc + Agland_rate + Forest_rate + Forest, model = "random", index = c("Country", "Year"), data= Data_1_1)
 summary(plm_1r)
 
-phtest(plm_1 , plm_1r)
+# I use 'phtest' to determine which effect model is more appropriate in this case #
+phtest(plm_1t , plm_1r)
 
-plm_1r <- plm(lnGHG ~  Ergpc + Cleanerg_rate + GDPpc + Agland_rate + Forest_rate + Forest, model = "random", index = c("Country", "Year"), data= Data_1_1)
-summary(plm_1r)
-
+# After comparing the one-way fixed and random effects models, next I compare the two-way fixed and random effects models #
 plm_1twofx <- plm(lnGHG ~  Ergpc + Cleanerg_rate + GDPpc + Agland_rate + Forest_rate + Forest, model = "within",effect = "twoways", index = c("Country", "Year"), data= Data_1_1)
 summary(plm_1twofx)
 

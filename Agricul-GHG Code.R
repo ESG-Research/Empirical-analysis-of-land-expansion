@@ -2,7 +2,7 @@
 title: "Agricul-GHG Code"
 author: "Zhaojie"
 date: "8/30/2023"
-output: html_document
+output: Html_document
 ---
 
 ```{r setup, include=FALSE}
